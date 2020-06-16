@@ -1,7 +1,6 @@
 .new-tweet form {
   display: flex;
   flex-direction: column;
-  /* align-items: stretch; */
 }
 
 .new-tweet #tweet-text {
@@ -16,4 +15,8 @@
   display: flex;
   justify-content: space-between;
   margin: 15px 0px;
+}
+
+.new-tweet .red {
+  color: #FF0000;
 }
