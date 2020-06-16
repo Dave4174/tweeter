@@ -1,3 +1,19 @@
-.new-tweet {
-  
+.new-tweet form {
+  display: flex;
+  flex-direction: column;
+  /* align-items: stretch; */
+}
+
+.new-tweet #tweet-text {
+  border: none;
+  border-bottom: 2px solid;
+  resize: none;
+  background-color: transparent;
+}
+
+.new-tweet div {
+  font-family: 'Bungee', cursive;
+  display: flex;
+  justify-content: space-between;
+  margin: 15px 0px;
 }
