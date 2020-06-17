@@ -1,3 +1,7 @@
+.new-tweet {
+  margin: 12px 0px 0px 0px;
+}
+
 .new-tweet form {
   display: flex;
   flex-direction: column;
@@ -5,7 +9,7 @@
 
 .new-tweet #tweet-text {
   border: none;
-  border-bottom: 2px solid;
+  border-bottom: 3px solid;
   resize: none;
   background-color: transparent;
 }
