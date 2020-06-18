@@ -14,3 +14,18 @@ nav {
 nav span {
   font-family: 'Bungee', cursive;
 }
+
+nav div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+nav div i {
+  color: #FF0000;
+}
+
+nav div span {
+  font-family: 'Source Sans Pro', sans-serif;
+}
