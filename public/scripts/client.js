@@ -4,61 +4,69 @@
  * Reminder: Use (and do all your DOM work in) jQuery's document ready function
  */
 
-const data = [
-  {
-    "user": {
-      "name": "Newton",
-      "avatars": "https://i.imgur.com/73hZDYK.png"
-      ,
-      "handle": "@SirIsaac"
-    },
-    "content": {
-      "text": "If I have seen further it is by standing on the shoulders of giants"
-    },
-    "created_at": 1461116232227
-  },
-  {
-    "user": {
-      "name": "Descartes",
-      "avatars": "https://i.imgur.com/nlhLi3I.png",
-      "handle": "@rd" },
-    "content": {
-      "text": "Je pense , donc je suis"
-    },
-    "created_at": 1461113959088
-  }
-]
-
-const createTweetElement = function (tweet) {
-  const $tweet = `<article>
-                    <header>
-                      <div>
-                        <img src="${tweet.user.avatars}">
-                        <span>${tweet.user.name}</span>
-                      </div>
-                      <span>${tweet.user.handle}</span>
-                    </header>
-                    <textarea readonly>${tweet.content.text}</textarea>
-                    <footer>
-                      <span>${moment(tweet.created_at, '').fromNow()}</span>
-                      <span>
-                        <i class="fa fa-flag" aria-hidden="true"></i>
-                        <i class="fa fa-retweet" aria-hidden="true"></i>
-                        <i class="fa fa-heart" aria-hidden="true"></i>
-                      </span>
-                    </footer>
-                  </article>`
-  return $tweet;
-};
-
-const renderTweets = function(tweets) {
-  // loops through tweets
-  for (let tweet of tweets) {
-    // calls createTweetElement for each tweet and appends the returned element to the tweets container
-    $('#tweet').append(createTweetElement(tweet));
-  }
-}
-
 $(document).ready(function () {
-  renderTweets(data);
+
+  const renderTweets = function (tweets) {
+    // loops through tweets
+    for (let tweet of tweets) {
+      // calls createTweetElement for each tweet and prepends the returned element to the tweets container
+      $('#tweet').prepend(createTweetElement(tweet));
+    }
+  }
+
+  const createTweetElement = function (tweet) {
+    const $tweet = `<article>
+                      <header>
+                        <div>
+                          <img src="${tweet.user.avatars}">
+                          <span>${tweet.user.name}</span>
+                        </div>
+                        <span>${tweet.user.handle}</span>
+                      </header>
+                      <textarea readonly>${tweet.content.text}</textarea>
+                      <footer>
+                        <span>${moment(tweet.created_at, '').fromNow()}</span>
+                        <span>
+                          <i class="fa fa-flag" aria-hidden="true"></i>
+                          <i class="fa fa-retweet" aria-hidden="true"></i>
+                          <i class="fa fa-heart" aria-hidden="true"></i>
+                        </span>
+                      </footer>
+                    </article>`
+    return $tweet;
+  };
+  
+  const loadTweets = function () {
+    $.ajax({
+      url: '/tweets',
+      method: 'GET',
+      dataType: 'JSON'
+    }).then(function (response) {
+      $('#tweet').empty();
+      renderTweets(response);
+    }).fail((err) => console.log(err));
+  };
+
+  $('form').on('submit', function (event) {
+    event.preventDefault();
+
+    if ($('#tweet-text').val().length === 0) {
+      alert("Please enter a tweet to send");
+    } else if ($('#tweet-text').val().length > 140) {
+      alert("Tweets must be a maximum of 140 characters");
+    } else {
+      $.ajax({
+        url: '/tweets',
+        method: 'POST',
+        data: $(this).serialize()
+      }).then(function(response) {
+        loadTweets()
+      }).fail((err) => console.log(err));
+      
+      $('#tweet-text').val("");  //removes the entered text from the tweet field
+    }
+
+  })
+
+  loadTweets();
 });
