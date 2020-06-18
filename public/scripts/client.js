@@ -6,14 +6,6 @@
 
 $(document).ready(function () {
 
-  const renderTweets = function (tweets) {
-    // loops through tweets
-    for (let tweet of tweets) {
-      // calls createTweetElement for each tweet and prepends the returned element to the tweets container
-      $('#tweet').prepend(createTweetElement(tweet));
-    }
-  }
-
   const createTweetElement = function (tweet) {
     const $tweet = `<article>
                       <header>
@@ -23,7 +15,9 @@ $(document).ready(function () {
                         </div>
                         <span>${tweet.user.handle}</span>
                       </header>
-                      <textarea readonly>${tweet.content.text}</textarea>
+                      <div>
+                        <p>${tweet.content.text}</p>
+                      </div>
                       <footer>
                         <span>${moment(tweet.created_at, '').fromNow()}</span>
                         <span>
@@ -35,6 +29,14 @@ $(document).ready(function () {
                     </article>`
     return $tweet;
   };
+
+  const renderTweets = function (tweets) {
+    // loops through tweets
+    for (let tweet of tweets) {
+      // calls createTweetElement for each tweet and prepends the returned element to the tweets container
+      $('#tweet').prepend(createTweetElement(tweet));
+    }
+  }
   
   const loadTweets = function () {
     $.ajax({
