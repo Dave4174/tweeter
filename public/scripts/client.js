@@ -59,9 +59,11 @@ $(document).ready(function () {
     event.preventDefault();
 
     if ($('#tweet-text').val().length === 0) {
-      alert("Please enter a tweet to send");
+      $('.error-msg').text("Please enter a tweet to send");
+      $('.error-msg').show();
     } else if ($('#tweet-text').val().length > 140) {
-      alert("Tweets must be a maximum of 140 characters");
+      $('.error-msg').text("Tweets must be a maximum of 140 characters");
+      $('.error-msg').show();
     } else {
       $.ajax({
         url: '/tweets',
@@ -72,6 +74,8 @@ $(document).ready(function () {
       }).fail((err) => console.log(err));
       
       $('#tweet-text').val("");  //removes the entered text from the tweet field
+      $('.error-msg').hide();  // hides the error message in case it was displayed
+      $('.counter')[0].innerHTML= "0";  // reset the character counter to zero
     }
 
   })
