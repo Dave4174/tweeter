@@ -17,3 +17,10 @@ This repository is the starter code for the project: Students will fork and clon
 - Node 5.10.x or above
 - Moment.js
 - Font Awesome 5
+
+## Screen Shots
+
+!["Main Screen"](https://github.com/Dave4174/tweeter/blob/master/docs/Main_screen.png?raw=true)
+!["App is Responsive"](https://github.com/Dave4174/tweeter/blob/master/docs/App_is_responsive.png?raw=true)
+!["Input Validation"](https://github.com/Dave4174/tweeter/blob/master/docs/Input_validation.png?raw=true)
+!["New Tweet Added"](https://github.com/Dave4174/tweeter/blob/master/docs/New_tweet_added.png?raw=true)
