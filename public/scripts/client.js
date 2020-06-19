@@ -4,15 +4,15 @@
  * Reminder: Use (and do all your DOM work in) jQuery's document ready function
  */
 
-$(document).ready(function () {
+$(document).ready(function() {
 
   const escape = function(str) {
     let div = document.createElement('div');
     div.appendChild(document.createTextNode(str));
     return div.innerHTML;
-  }
+  };
 
-  const createTweetElement = function (tweet) {
+  const createTweetElement = function(tweet) {
     const $tweet = `<article>
                       <header>
                         <div>
@@ -32,30 +32,30 @@ $(document).ready(function () {
                           <i class="fa fa-heart" aria-hidden="true"></i>
                         </span>
                       </footer>
-                    </article>`
+                    </article>`;
     return $tweet;
   };
 
-  const renderTweets = function (tweets) {
+  const renderTweets = function(tweets) {
     // loops through tweets
     for (let tweet of tweets) {
       // calls createTweetElement for each tweet and prepends the returned element to the tweets container
       $('#tweet').prepend(createTweetElement(tweet));
     }
-  }
+  };
   
-  const loadTweets = function () {
+  const loadTweets = function() {
     $.ajax({
       url: '/tweets',
       method: 'GET',
       dataType: 'JSON'
-    }).then(function (response) {
+    }).then(function(response) {
       $('#tweet').empty();
       renderTweets(response);
     }).fail((err) => console.log(err));
   };
 
-  $('form').on('submit', function (event) {
+  $('form').on('submit', function(event) {
     event.preventDefault();
 
     if ($('#tweet-text').val().length === 0) {
@@ -70,15 +70,15 @@ $(document).ready(function () {
         method: 'POST',
         data: $(this).serialize()
       }).then(function(response) {
-        loadTweets()
+        loadTweets();
       }).fail((err) => console.log(err));
       
       $('#tweet-text').val("");  //removes the entered text from the tweet field
       $('.error-msg').hide();  // hides the error message in case it was displayed
-      $('.counter')[0].innerHTML= "0";  // reset the character counter to zero
+      $('.counter')[0].innerHTML = "0";  // reset the character counter to zero
     }
 
-  })
+  });
 
   loadTweets();
 });
