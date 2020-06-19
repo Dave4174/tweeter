@@ -28,7 +28,36 @@ body {
  * Additional CSS can be defined below or in other CSS files, as per instructions
  */
 
- main {
+#outer-container {
+  width: 100%;
+  display: flex;
+}
+
+main {
    width: 90%;
    background-color: #f4f1ec;
  }
+
+@media screen and (min-width: 1024px) {
+  #outer-container  {
+    flex-direction: row;
+  }
+
+  #body-header, .container {
+    margin: 32px;
+  }
+
+  #body-header {
+    max-width: 25%;
+  }
+
+  .container {
+    max-width: 75%;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  #outer-container  {
+    flex-direction: column;
+  }
+}

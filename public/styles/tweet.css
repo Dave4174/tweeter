@@ -27,6 +27,7 @@ article:hover {
   background-color: transparent;
   padding: 12px;
   margin: 0px;
+  word-break: break-all;
 }
 
 #tweet footer {
